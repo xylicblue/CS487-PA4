@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TaskFlow Order System</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: rgba(30, 41, 59, 0.85);
+            --text: #f8fafc;
+            --accent: #a78bfa;
+            --accent-strong: #8b5cf6;
+            --accent-dark: #7c3aed;
+            --success: #10b981;
+            --error: #ef4444;
+            --line: rgba(148, 163, 184, 0.24);
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+            background: var(--bg);
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            inset: -18px;
+            background:
+                linear-gradient(rgba(15, 23, 42, 0.18), rgba(15, 23, 42, 0.5)),
+                url("Cloud fr.avif") center / cover no-repeat;
+            filter: blur(3px);
+            transform: scale(1.03);
+            z-index: -2;
+        }
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.42);
+            z-index: -1;
+        }
+        .container {
+            background: var(--card);
+            padding: 2rem;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 24px 70px rgba(2, 6, 23, 0.45);
+            backdrop-filter: blur(10px);
+            width: 100%;
+            max-width: 420px;
+            margin: 1.25rem;
+        }
+        h1 {
+            margin-top: 0;
+            font-size: 1.6rem;
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 1rem;
+            letter-spacing: 0;
+        }
+        .form-group { margin-bottom: 1rem; }
+        label { display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: #94a3b8; }
+        input {
+            width: 100%; padding: 0.78rem; border: 1px solid rgba(148, 163, 184, 0.24);
+            background: rgba(15, 23, 42, 0.88); color: white; border-radius: 8px;
+            outline: none;
+        }
+        input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.2);
+        }
+        button {
+            width: 100%; padding: 0.82rem; background: linear-gradient(135deg, var(--accent), var(--accent-strong)); color: white;
+            border: none; border-radius: 8px; font-weight: 700; cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s, background 0.2s;
+            box-shadow: 0 12px 28px rgba(124, 58, 237, 0.28);
+        }
+        button:hover { background: linear-gradient(135deg, #c4b5fd, var(--accent-dark)); transform: translateY(-1px); }
+        button:disabled { background: #475569; cursor: not-allowed; transform: none; box-shadow: none; }
+        #status-panel {
+            margin-top: 1.5rem; padding: 1rem; border-radius: 6px;
+            background: rgba(15, 23, 42, 0.82); border: 1px solid rgba(148, 163, 184, 0.24); display: none;
+            overflow-wrap: anywhere;
+        }
+        .tag { display: inline-block; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
+        .tag.running { background: #ca8a04; color: white; }
+        .tag.completed { background: var(--success); color: white; }
+        .tag.failed { background: var(--error); color: white; }
+        .tag.rejected { background: var(--error); color: white; }
+        .loader {
+            border: 3px solid #334155; border-top: 3px solid var(--accent);
+            border-radius: 50%; width: 14px; height: 14px; animation: spin 1s linear infinite;
+            display: inline-block; vertical-align: middle; margin-right: 8px;
+        }
+        a { color: #c4b5fd; }
+        small { line-height: 1.45; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>TaskFlow</h1>
+        <div class="form-group">
+            <label>Order ID</label>
+            <input type="text" id="order_id" value="ORD-001">
+        </div>
+        <div class="form-group">
+            <label>SKU</label>
+            <input type="text" id="sku" value="WIDGET-X">
+        </div>
+        <div class="form-group">
+            <label>Quantity (Max 100)</label>
+            <input type="number" id="qty" value="2">
+        </div>
+        <button id="submitBtn" onclick="submitOrder()">Submit Order</button>
+
+        <div id="status-panel">
+            <div id="status-text"></div>
+            <div id="result-link" style="margin-top: 10px;"></div>
+        </div>
+    </div>
+
+    <script>
+        async function submitOrder() {
+            const btn = document.getElementById('submitBtn');
+            const panel = document.getElementById('status-panel');
+            const statusText = document.getElementById('status-text');
+            const resultLink = document.getElementById('result-link');
+            
+            btn.disabled = true;
+            panel.style.display = 'block';
+            resultLink.innerHTML = '';
+            statusText.innerHTML = '<span class="loader"></span> Starting orchestration...';
+
+            const qty = Number.parseInt(document.getElementById('qty').value, 10);
+            const orderId = document.getElementById('order_id').value.trim();
+            const sku = document.getElementById('sku').value.trim();
+
+            if (!orderId || !sku || Number.isNaN(qty) || qty < 1) {
+                panel.style.display = 'block';
+                statusText.innerHTML = '<span class="tag failed">Invalid Input</span> Enter an order ID, SKU, and quantity of at least 1.';
+                btn.disabled = false;
+                return;
+            }
+
+            const payload = {
+                order_id: orderId,
+                items: [{
+                    sku,
+                    qty
+                }]
+            };
+
+            try {
+                const res = await fetch('/api/order', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (!res.ok) {
+                    const errorData = await res.json().catch(() => ({}));
+                    throw new Error(errorData.details || errorData.error || `HTTP ${res.status}`);
+                }
+                const startData = await res.json();
+                
+                if (!startData.statusQueryGetUri) {
+                    throw new Error("Invalid response from Function Starter. Check FUNCTION_START_URL app setting.");
+                }
+
+                pollStatus(startData.statusQueryGetUri);
+
+            } catch (err) {
+                statusText.innerHTML = `<span class="tag failed">Error</span> ${err.message}`;
+                btn.disabled = false;
+            }
+        }
+
+        async function pollStatus(statusUrl) {
+            const statusText = document.getElementById('status-text');
+            const resultLink = document.getElementById('result-link');
+            const btn = document.getElementById('submitBtn');
+
+            try {
+                const res = await fetch(`/api/status?url=${encodeURIComponent(statusUrl)}`);
+                if (!res.ok) {
+                    const errorData = await res.json().catch(() => ({}));
+                    throw new Error(errorData.details || errorData.error || `HTTP ${res.status}`);
+                }
+                const data = await res.json();
+
+                const state = data.runtimeStatus;
+                
+                if (state === "Running" || state === "Pending") {
+                    statusText.innerHTML = `<span class="loader"></span> <span class="tag running">${state}</span><br><small style="color:#94a3b8; display:block; margin-top:8px;">ID: ${data.instanceId}</small>`;
+                    setTimeout(() => pollStatus(statusUrl), 3000);
+                } 
+                else if (state === "Completed") {
+                    const output = data.output;
+                    if (output && output.status === "rejected") {
+                        statusText.innerHTML = `<span class="tag rejected">Rejected</span><br><small style="color:#94a3b8; display:block; margin-top:8px;">Reason: ${output.reason}</small>`;
+                    } else if (output && output.report_url) {
+                        statusText.innerHTML = `<span class="tag completed">Completed</span>`;
+                        resultLink.innerHTML = `<a href="${output.report_url}" target="_blank" rel="noopener" style="text-decoration:none;">View PDF Report</a>`;
+                    } else {
+                        statusText.innerHTML = `<span class="tag completed">Completed</span><br><small style="color:#94a3b8; display:block; margin-top:8px;">No report URL was returned.</small>`;
+                    }
+                    btn.disabled = false;
+                }
+                else if (state === "Failed") {
+                    statusText.innerHTML = `<span class="tag failed">Failed</span><br><small style="color:#ef4444; display:block; margin-top:8px;">See Function logs for details.</small>`;
+                    btn.disabled = false;
+                }
+                else {
+                    statusText.innerHTML = `<span class="tag failed">${state}</span>`;
+                    btn.disabled = false;
+                }
+
+            } catch (err) {
+                statusText.innerHTML = `<span class="tag failed">Polling Error</span> ${err.message}`;
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -87,8 +87,8 @@ pa4-starter/
 2. Work only in your fork and keep this directory structure.
 3. Use your assigned Azure resource group: `rg-sp26-<rollnum>`.
 4. Use your assigned region:
-   - Even roll-number last digit: `uaenorth`
-   - Odd roll-number last digit: `ukwest`
+   - Roll number starting with `2027-10`: `ukwest`
+   - Roll number starting with `2025` or `2026-10`: `uaenorth`
 5. Build and push all three Docker images to your ACR.
 6. Complete the TODOs in `function-app/function_app.py`.
 7. Deploy the Web App, Function App, AKS validator, ACI report job path, and Blob Storage.
