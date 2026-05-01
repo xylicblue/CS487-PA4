@@ -38,23 +38,23 @@ Copy this file to <code style="color:#111827;background:#ddd6fe;padding:2px 4px;
 
 ### Evidence 1.2: App Service Overview
 
-![description](images/web_app_running.png)
+![description](web_app_running.png)
 
 Description: Web App pa4-26100249 running on B1 Linux App Service Plan in UK West, serving the TaskFlow frontend at https://pa4-26100249.azurewebsites.net
 
 ### Evidence 1.3: Deployment Center / GitHub Actions
 
-![description](images/deployment_1.png)
-![description](images/deployment_2.png)
+![description](deployment_1.png)
+![description](deployment_2.png)
 
 ### Application settings configured
-![description](images/app_settings_configured.png)
+![description](app_settings_configured.png)
 
 Deployment Center connected to GitHub fork via GitHub Actions, automatically deploying on push to main.
 
 ### Evidence 1.4: Live Web UI
 
-![description](images/web_app_running_azure.png)
+![description](web_app_running_azure.png)
 
 TaskFlow order submission UI is live and accessible publicly.
 
@@ -64,39 +64,39 @@ TaskFlow order submission UI is live and accessible publicly.
 
 ### Evidence 2.1: ACR Overview
 
-![description](images/acr_privisioned.png)
+![description](acr_privisioned.png)
 
 ACR pa426100249 (Basic SKU) in resource group rg-sp26-26100249, UK West.
 
 ### Evidence 2.2: Docker Builds
 
 ### Local Container Running:
-![description](images/local_container_running.png)
+![description](local_container_running.png)
 
 # Building images locally:
-![description](images/report-ss.png)
-![description](images/validate-ss.png)
-![description](images/funcapp-ss.png)
+![description](report-ss.png)
+![description](validate-ss.png)
+![description](funcapp-ss.png)
 
 Three images built locally on docker : validate-api:v1, report-job:v1, func-app:v1.
 
 ### Local validator Test:
-![description](images/local_curl_request.png)
+![description](local_curl_request.png)
 Response:
-![description](images/local_curl_req_resp.png)
+![description](local_curl_req_resp.png)
 
 ### Pushing images to acr:
-![description](images/push_acr_1.png)
-![description](images/push_acr_2.png)
+![description](push_acr_1.png)
+![description](push_acr_2.png)
 
 Images pushed to ACR with latest tag.
 
 ### Evidence 2.3: ACR Repositories
 
 ### Terminal:
-![description](images/acr_verify_terminal.png)
+![description](acr_verify_terminal.png)
 ### Azure GUI:
-![description](images/acr_repo_azure_web.png)
+![description](acr_repo_azure_web.png)
 
 Three images pushed: validate-api:v1, report-job:v1, func-app:v1
 
@@ -112,7 +112,7 @@ The orchestrator chains validate_activity (calls AKS validator) → conditional 
 
 ### Evidence 3.2: Local Function Handler Listing
 
-![description](images/azurite_ss.png)
+![description](azurite_ss.png)
 
 ---
 
