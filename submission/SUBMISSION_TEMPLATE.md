@@ -85,7 +85,7 @@ ACR `pa426100249` (Basic SKU) provisioned in resource group `rg-sp26-26100249`, 
 All three images were built locally using Docker: `validate-api:v1` (from `validate-api/`), `report-job:v1` (from `report-job/`), and `func-app:v1` (from `function-app/`).
 
 ### Local validator Test:
-![Local curl request](local_curl_request.png)
+<!-- ![Local curl request](local_curl_request.png) -->
 Response:
 ![Local curl response](local_curl_req_resp.png)
 
@@ -164,7 +164,7 @@ AKS cluster `pa4-26100249` provisioned successfully in UK West, resource group `
 
 ### Evidence 5.3: Kubernetes Service
 
-![kubectl get service](get_service_extrnal_ip.png)
+![kubectl get service](get_service_external_ip.png)
 
 The `validate-service` LoadBalancer exposes the validator at external IP `20.162.28.27` on port `8080`. This IP is used as the `VALIDATE_URL` in the Function App.
 
@@ -192,7 +192,7 @@ The AKS node pool remains running continuously even when no orders are being pro
 
 ### Evidence 6.1: Blob Container
 
-![Reports blob container](reports_blob_container.png)
+![Reports blob container](report_blob_container.png)
 
 Generated PDFs are stored in the `reports` blob container inside the `pa426100249` storage account. Each file is named `<order_id>.pdf` and is uploaded by the ACI report job using Managed Identity authentication.
 
