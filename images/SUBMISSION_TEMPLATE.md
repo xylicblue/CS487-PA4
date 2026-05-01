@@ -34,7 +34,7 @@ Copy this file to <code style="color:#111827;background:#ddd6fe;padding:2px 4px;
 
 ### Evidence 1.1: Forked Repository
 
-[description](forked_repo.png)
+![description](forked_repo.png)
 
 Description: TODO: Explain that this is your working fork and that it contains the PA4 starter structure.
 
