@@ -15,11 +15,11 @@ Copy this file to <code style="color:#111827;background:#ddd6fe;padding:2px 4px;
 
 | Field | Value |
 |---|---|
-| Name | TODO |
-| Roll Number | TODO |
-| GitHub Repository URL | TODO |
-| Resource Group | `rg-sp26-TODO` |
-| Assigned Region | TODO: `uaenorth` or `ukwest` |
+| Name | Mahad bin Aamir |
+| Roll Number | 26100249 |
+| GitHub Repository URL | https://github.com/xylicblue/CS487-PA4 |
+| Resource Group | `rg-sp26-26100249` |
+| Assigned Region | uk-west |
 
 ## Evidence Rules
 
@@ -34,7 +34,7 @@ Copy this file to <code style="color:#111827;background:#ddd6fe;padding:2px 4px;
 
 ### Evidence 1.1: Forked Repository
 
-TODO: Embed screenshot of your forked GitHub repository.
+[description](forked_repo.png)
 
 Description: TODO: Explain that this is your working fork and that it contains the PA4 starter structure.
 
@@ -52,7 +52,7 @@ Description: TODO: Explain how the Web App is connected to your GitHub fork.
 
 ### Evidence 1.4: Live Web UI
 
-[description](images/web_app_running.png)
+TODO: Embed screenshot of the TaskFlow page loaded in a browser.
 
 Description: TODO: Explain that the App Service is serving the frontend successfully.
 
