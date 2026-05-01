@@ -36,25 +36,27 @@ Copy this file to <code style="color:#111827;background:#ddd6fe;padding:2px 4px;
 
 ![description](forked_repo.png)
 
-Description: TODO: Explain that this is your working fork and that it contains the PA4 starter structure.
-
 ### Evidence 1.2: App Service Overview
 
-TODO: Embed screenshot of the Web App overview page showing `webapp-<rollnum>` and Running status.
+![description](images/web_app_running.png)
 
-Description: TODO: State the resource group, region, runtime, and public URL.
+Description: Web App pa4-26100249 running on B1 Linux App Service Plan in UK West, serving the TaskFlow frontend at https://pa4-26100249.azurewebsites.net
 
 ### Evidence 1.3: Deployment Center / GitHub Actions
 
-TODO: Embed screenshot of Deployment Center or the successful GitHub Actions deployment.
+![description](images/deployment_1.png)
+![description](images/deployment_2.png)
 
-Description: TODO: Explain how the Web App is connected to your GitHub fork.
+### Application settings configured
+![description](images/app_settings_configured.png)
+
+Deployment Center connected to GitHub fork via GitHub Actions, automatically deploying on push to main.
 
 ### Evidence 1.4: Live Web UI
 
-TODO: Embed screenshot of the TaskFlow page loaded in a browser.
+![description](images/web_app_running_azure.png)
 
-Description: TODO: Explain that the App Service is serving the frontend successfully.
+TaskFlow order submission UI is live and accessible publicly.
 
 ---
 
@@ -62,21 +64,41 @@ Description: TODO: Explain that the App Service is serving the frontend successf
 
 ### Evidence 2.1: ACR Overview
 
-TODO: Embed screenshot of `crpa4<rollnum>` overview.
+![description](images/acr_privisioned.png)
 
-Description: TODO: Identify the registry SKU and resource group.
+ACR pa426100249 (Basic SKU) in resource group rg-sp26-26100249, UK West.
 
 ### Evidence 2.2: Docker Builds
 
-TODO: Embed screenshot showing successful local builds for `validate-api`, `report-job`, and `func-app`.
+### Local Container Running:
+![description](images/local_container_running.png)
 
-Description: TODO: Explain which folder produced each image.
+# Building images locally:
+![description](images/report-ss.png)
+![description](images/validate-ss.png)
+![description](images/funcapp-ss.png)
+
+Three images built locally on docker : validate-api:v1, report-job:v1, func-app:v1.
+
+### Local validator Test:
+![description](images/local_curl_request.png)
+Response:
+![description](images/local_curl_req_resp.png)
+
+### Pushing images to acr:
+![description](images/push_acr_1.png)
+![description](images/push_acr_2.png)
+
+Images pushed to ACR with latest tag.
 
 ### Evidence 2.3: ACR Repositories
 
-TODO: Embed screenshot or CLI output showing all three repositories in ACR.
+### Terminal:
+![description](images/acr_verify_terminal.png)
+### Azure GUI:
+![description](images/acr_repo_azure_web.png)
 
-Description: TODO: Confirm `validate-api:v1`, `report-job:v1`, and `func-app:v1` were pushed.
+Three images pushed: validate-api:v1, report-job:v1, func-app:v1
 
 ---
 
@@ -84,15 +106,13 @@ Description: TODO: Confirm `validate-api:v1`, `report-job:v1`, and `func-app:v1`
 
 ### Evidence 3.1: Completed Function Code
 
-TODO: Link to your completed file: `[function_app.py](function-app/function_app.py)`.
+`[function_app.py](function-app/function_app.py)`
 
-Description: TODO: Summarize how your orchestrator chains validation and report generation.
+The orchestrator chains validate_activity (calls AKS validator) → conditional reject or report_activity (spawns ACI to generate PDF).
 
 ### Evidence 3.2: Local Function Handler Listing
 
-TODO: Embed screenshot of `func start` showing the HTTP starter, orchestrator, and activities.
-
-Description: TODO: Explain that the Durable Functions runtime discovered your handlers.
+![description](images/azurite_ss.png)
 
 ---
 
