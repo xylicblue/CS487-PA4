@@ -119,6 +119,7 @@ The orchestrator chains `validate_activity` (POSTs the order to the AKS validato
 ### Evidence 3.2: Local Function Handler Listing
 
 ![Azurite and func start output](azurite_ss.png)
+![All functions listed in Function App](func_app_showing_all_functions.png)
 
 The `func start` output shows the Durable Functions runtime successfully discovered all four handlers: `http_starter` (HTTP trigger), `my_orchestrator` (orchestration trigger), `validate_activity`, and `report_activity` (activity triggers), confirming the implementation is correctly wired.
 
@@ -133,7 +134,7 @@ The `func start` output shows the Durable Functions runtime successfully discove
 Function App `pa4-26100249s` deployed as a container using image `pa426100249.azurecr.io/func-app:v1` on a B1 Linux App Service Plan in UK West.
 
 ### Function list showing all deployed functions:
-![All functions listed in Function App](func_app_showing_all_functions.png)
+![funcs list](func_app_website.png)
 
 The Azure Portal confirms all four functions are registered and enabled in the deployed Function App: `http_starter`, `my_orchestrator`, `validate_activity`, and `report_activity`.
 
