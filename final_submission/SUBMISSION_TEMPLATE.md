@@ -88,7 +88,7 @@ All three images were built locally using Docker: `validate-api:v1` (from `valid
 <!-- ![Local curl request](local_curl_request.png) -->
 Response:
 ![Local curl response](local_curl_req_resp.png)
-
+![Local curl resp 2 ](local_curl_req.png)
 The validate-api container was tested locally by sending a POST to `/validate`. The response confirms the validation logic correctly evaluates order items.
 
 ### Pushing images to ACR:
