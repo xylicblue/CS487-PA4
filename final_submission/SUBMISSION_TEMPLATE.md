@@ -181,6 +181,7 @@ Valid orders (qty≤100) return `{"valid": true, "reason": "ok"}`. Orders with a
 ### Evidence 5.5: Function App `VALIDATE_URL`
 
 ![VALIDATE_URL app setting](validateurl.png)
+![curl health](curl_health.png)
 
 The Function App has `VALIDATE_URL=http://20.162.28.27:8080/validate` configured as an application setting. The `validate_activity` function reads this at runtime and POSTs the order payload to the AKS validator.
 
