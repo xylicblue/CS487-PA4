@@ -123,6 +123,9 @@ The orchestrator chains `validate_activity` (POSTs the order to the AKS validato
 
 The `func start` output shows the Durable Functions runtime successfully discovered all four handlers: `http_starter` (HTTP trigger), `my_orchestrator` (orchestration trigger), `validate_activity`, and `report_activity` (activity triggers), confirming the implementation is correctly wired.
 
+### Evidence 3.3: Smoke Test:
+![Smoke Test](smoke_test.png)
+
 ---
 
 ## Task 4: Function App Container Deployment (8 points)
@@ -292,9 +295,9 @@ All provisioned resources visible in `rg-sp26-26100249`: App Service, Function A
 
 ### Evidence 8.1: Architecture Diagram
 
-TODO: Embed your architecture diagram from `docs/`.
+![architecture_diagram](architecture_diag.png)
 
-The diagram shows the full request flow: Browser → App Service (Web App) → Azure Durable Functions (HTTP Starter → Orchestrator → validate_activity → report_activity) → AKS (validator microservice) → ACI (one-shot report job) → Azure Blob Storage (reports container). ACR supplies container images to AKS, ACI, and the Function App. The User-Assigned Managed Identity bridges the Function App and ACI to storage without credentials.
+The diagram shows the full request flow: Browser → App Service (Web App) → Azure Durable Functions (HTTP Starter → Orchestrator → validate_activity → report_activity) → AKS (validator microservice) → ACI (one-shot report job) → Azure Blob Storage (reports container). ACR supplies container images to AKS, ACI, and the Function App. The User-Assigned Managed Identity bridges the Function App and ACI to storage without credentials.(PDF FILE IN /DOCS)
 
 ### Question 8.2: Service Selection
 
