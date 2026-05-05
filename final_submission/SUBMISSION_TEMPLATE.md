@@ -138,13 +138,13 @@ Function App `pa4-26100249s` deployed as a container using image `pa426100249.az
 
 The Azure Portal confirms all four functions are registered and enabled in the deployed Function App: `http_starter`, `my_orchestrator`, `validate_activity`, and `report_activity`.
 
-### Evidence 4.2: Orchestration Smoke Test
+<!-- ### Evidence 4.2: Orchestration Smoke Test
 
 The Function App HTTP starter was tested with a `curl` POST to `/api/orchestrators/my_orchestrator`. It returned HTTP 202 with an `id` and `statusQueryGetUri`, confirming the Durable Functions runtime accepted the orchestration and persisted its state to storage.
 
 ### Evidence 4.3: Expected Failed Status Before Downstream Wiring
 
-Before `VALIDATE_URL` was configured as an app setting, the `validate_activity` would fail with an environment variable error. This failure is expected at this stage because the activity function depends on `VALIDATE_URL` to reach the AKS validator, which had not yet been deployed. The orchestration correctly surfaces the activity failure as a `Failed` orchestration status.
+Before `VALIDATE_URL` was configured as an app setting, the `validate_activity` would fail with an environment variable error. This failure is expected at this stage because the activity function depends on `VALIDATE_URL` to reach the AKS validator, which had not yet been deployed. The orchestration correctly surfaces the activity failure as a `Failed` orchestration status. -->
 
 ---
 
